@@ -128,6 +128,9 @@
 (defun vc-backup--get-real (file-or-backup)
   "Return the actual file behind FILE-OR-BACKUP."
   (if (backup-file-name-p file-or-backup)
+      ;; FIXME: The user may overwrite
+      ;; `make-backup-file-name-function' and use something else
+      ;; besides exclamations points to save files.
       (replace-regexp-in-string
        "!!?"
        (lambda (rep)
@@ -303,8 +306,10 @@ The results are written into BUFFER."
                (uid (file-attribute-user-id attr))
                (user (or (user-login-name uid) uid))
                (time (file-attribute-modification-time attr))
+               (size (file-attribute-size attr))
                (date (format-time-string "%c" time)))
-          (insert (format "%s%s\t%s (%s)\n" base (car rev) date user)))))
+          (insert (format "%s%s\t%s (%s)\t%s\n" base (car rev) date user
+                          (file-size-human-readable size nil " " "B"))))))
     (goto-char (point-min))
     (forward-line 2))
   'limit-unsupported)
