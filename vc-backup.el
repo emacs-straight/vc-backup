@@ -5,7 +5,7 @@
 ;; Author: Philip Kaludercic <philipk@posteo.net>
 ;; Maintainer: Philip Kaludercic <philipk@posteo.net>
 ;; URL: https://git.sr.ht/~pkal/vc-backup
-;; Version: 1.0.0
+;; Version: 1.1.0
 ;; Keywords: vc
 
 ;; vc-backup.el free software: you can redistribute it and/or modify
