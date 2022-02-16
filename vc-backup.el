@@ -3,7 +3,7 @@
 ;; Copyright (C) 2021  Free Software Foundation, Inc.
 
 ;; Author: Philip Kaludercic <philipk@posteo.net>
-;; Maintainer: Philip Kaludercic <philipk@posteo.net>
+;; Maintainer: Philip Kaludercic <~pkal/public-inbox@lists.sr.ht>
 ;; URL: https://git.sr.ht/~pkal/vc-backup
 ;; Version: 1.1.0
 ;; Keywords: vc
