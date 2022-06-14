@@ -1,10 +1,11 @@
 ;;; vc-backup.el --- VC backend for versioned backups  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2021  Free Software Foundation, Inc.
+;; Copyright (C) 2021, 2022  Free Software Foundation, Inc.
 
 ;; Author: Philip Kaludercic <philipk@posteo.net>
 ;; Maintainer: Philip Kaludercic <~pkal/public-inbox@lists.sr.ht>
 ;; URL: https://git.sr.ht/~pkal/vc-backup
+;; Package-Requires: ((emacs "24.3") (compat "28.1.1.0")
 ;; Version: 1.1.0
 ;; Keywords: vc
 
@@ -146,7 +147,8 @@ function returns all backups for these files, in order of their
 recency."
   (let (versions)
     (dolist (file (if (listp file-or-list) file-or-list (list file-or-list)))
-      (let ((filename (thread-last (vc-backup--get-real file)
+      (let ((filename (thread-last
+                        (vc-backup--get-real file)
                         expand-file-name
                         make-backup-file-name
                         file-name-sans-versions)))
@@ -184,7 +186,8 @@ file."
   "Return backup file for FILE of the version REV."
   (cond ((string= rev vc-backup--current-tag) file)
         ((string= rev vc-backup--previous-tag)
-         (let ((prev (thread-last (expand-file-name file)
+         (let ((prev (thread-last
+                       (expand-file-name file)
                        make-backup-file-name
                        file-name-sans-versions
                        (format "%~"))))
@@ -193,7 +196,8 @@ file."
 
 (defun vc-backup--last-rev (file)
   "Return the revision of the last backup for FILE."
-  (thread-last (vc-backup--list-backups file)
+  (thread-last
+    (vc-backup--list-backups file)
     car
     vc-backup--extract-version))
 
@@ -335,8 +339,11 @@ The results are written into BUFFER."
   "Generate a diff for FILES between versions REV1 and REV2.
 BUFFER and ASYNC as interpreted as specified in vc.el."
   (cl-assert (= (length files) 1))
-  (setq rev1 (or rev1 vc-backup--current-tag))
   (setq rev2 (or rev2 (vc-backup--last-rev files)))
+  (setq rev1 (or rev1 (vc-backup-previous-revision
+                       (if (consp files) (car files) files)
+                       rev2)
+                 vc-backup--current-tag))
   (save-window-excursion
     (let ((dirty 0))
       (dolist (file files)
@@ -392,11 +399,15 @@ BUFFER and ASYNC as interpreted as specified in vc.el."
 (defun vc-backup-previous-revision (file rev)
   "Determine the revision before REV for FILE."
   (let* ((backups (vc-backup--list-backups file))
-         (index (cl-position rev backups :key #'car)))
+         (index (cl-position
+                 rev backups
+                 :key #'vc-backup--extract-version
+                 :test #'string=)))
     (cond ((string= rev vc-backup--current-tag) (car backups))
           ((string= rev vc-backup--previous-tag) nil)
           ((and (natnump index) (> index 0))
-           (car (nth (1- index) backups))))))
+           (vc-backup--extract-version
+            (nth (1- index) backups))))))
 
 (defun vc-backup-next-revision (file rev)
   "Determine the revision after REV for FILE."
@@ -420,10 +431,12 @@ BUFFER and ASYNC as interpreted as specified in vc.el."
 (defun vc-backup-rename-file (old-file new-file)
   "Rename OLD-FILE to NEW-FILE and all its backup accordingly."
   (rename-file old-file new-file)
-  (let ((new-part (thread-last (expand-file-name new-file)
+  (let ((new-part (thread-last
+                    (expand-file-name new-file)
                     make-backup-file-name
                     file-name-sans-versions))
-        (old-part (thread-last (expand-file-name old-file)
+        (old-part (thread-last
+                    (expand-file-name old-file)
                     make-backup-file-name
                     file-name-sans-versions)))
     (dolist (backup (vc-backup--list-backups old-file))
