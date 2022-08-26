@@ -1,14 +1,24 @@
 vc-backup
 =========
 
-vc-backup is a [vc][vc] backend that uses backups for single-file
-version control.
+Find here the source for vc-backup.el, a [VC][VC] backend that uses
+[Emacs backup files] for single-file version control.
+
+[Emacs backup files]:
+	https://www.gnu.org/software/emacs/manual/html_node/emacs/Backup.html
+[VC]:
+	https://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html
 
 Installation
 ------------
 
-`vc-backup.el` is part of [GNU ELPA][elpa], and can be installed using
-`package.el`.
+`vc-backup` is available from [GNU ELPA]. It can be installed by
+invoking
+
+	M-x package-install RET vc-backup RET
+
+[GNU ELPA]:
+	http://elpa.gnu.org/packages/vc-backup.html
 
 Usage
 -----
@@ -18,25 +28,41 @@ recommended to enable `version-control` so as to have multiple
 versions of a file accessible. Increasing `kept-new-versions` makes
 sure you have more versions to compare.
 
-Bugs
-----
+Contribute
+----------
 
-Bugs or patches can be submitted to my [public inbox][mail].  Note
-that non-trivial contributions require a [copyright assignment][ca] to
-the FSF.
+As `vc-backup+.el` is distribed as part of [GNU ELPA], and therefore
+requires a [copyright assignment] to the [FSF], for all non-trivial
+code contributions.
 
-This package is still young, so wishes, impressions and criticism are
-very appreciated. If you have anything to say, feel free to send an
-email to the aforementioned [public inbox][mail].
+[copyright assignment]:
+	https://www.gnu.org/software/emacs/manual/html_node/emacs/Copyright-Assignment.html
+[FSF]:
+	https://www.fsf.org/
 
-Copying
--------
+Source code
+-----------
 
-`vc-backup.el` is distributed under the [GPL v3][gpl3] license.
+`vc-backup` is developed on [SourceHut].
 
-[vc]: https://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html
-[elpa]: http://elpa.gnu.org/packages/vc-backup.html
-[setup]: http://elpa.gnu.org/packages/setup.html
-[mail]: https://lists.sr.ht/~pkal/public-inbox
-[ca]: https://www.gnu.org/software/emacs/manual/html_node/emacs/Copyright-Assignment.html#Copyright-Assignment
-[gpl3]: https://www.gnu.org/licenses/gpl-3.0.en.html
+[SourceHut]:
+	https://sr.ht/~pkal/vc-backup
+
+Bugs and Patches
+----------------
+
+Bugs, patches, comments or questions can be submitted to my [public
+inbox].
+
+[public inbox]:
+	https://lists.sr.ht/~pkal/public-inbox
+
+Distribution
+------------
+
+vc-backup.el and all other source files in this directory are
+distributed under the [GNU Public License], Version 3 (like Emacs
+itself).
+
+[GNU Public License]:
+	https://www.gnu.org/licenses/gpl-3.0.en.html
