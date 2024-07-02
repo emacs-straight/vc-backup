@@ -1,0 +1,5 @@
+*.elc
+*~
+\#*\#
+/vc-backup-pkg.el
+/vc-backup-autoloads.el
