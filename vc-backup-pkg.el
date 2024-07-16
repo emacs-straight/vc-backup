@@ -1,0 +1,2 @@
+;; Generated package description from vc-backup.el  -*- no-byte-compile: t -*-
+(define-package "vc-backup" "1.1.0.0.20220825.144758" "VC backend for versioned backups" '((emacs "24.3") (compat "28.1.1.0")) :commit "b88e983d6562dd369701d1924ed6860e3fe5c45d" :authors '(("Philip Kaludercic" . "philipk@posteo.net")) :maintainer '("Philip Kaludercic" . "~pkal/public-inbox@lists.sr.ht") :keywords '("vc") :url "https://git.sr.ht/~pkal/vc-backup")
