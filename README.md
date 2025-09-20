@@ -43,19 +43,21 @@ code contributions.
 Source code
 -----------
 
-`vc-backup` is developed on [SourceHut].
+`vc-backup` is developed on [Codeberg].
 
-[SourceHut]:
-	https://sr.ht/~pkal/vc-backup
+[Codeberg]:
+	https://codeberg.org/pkal/vc-backup.el
 
 Bugs and Patches
 ----------------
 
-Bugs, patches, comments or questions can be submitted to my [public
-inbox].
+Bugs, patches, comments or questions can be submitted via [Codeberg's
+issue system] or by sending [me] an email.
 
-[public inbox]:
-	https://lists.sr.ht/~pkal/public-inbox
+[Codeberg's issue system]:
+	https://codeberg.org/pkal/vc-backup.el/issues
+[me]:
+	https://sdf.org/~pkal#contact
 
 Distribution
 ------------
