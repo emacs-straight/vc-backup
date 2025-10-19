@@ -1,6 +1,6 @@
 ;;; vc-backup.el --- VC backend for versioned backups  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2021, 2022  Free Software Foundation, Inc.
+;; Copyright (C) 2021, 2022, 2025  Free Software Foundation, Inc.
 
 ;; Author: Philip Kaludercic <philipk@posteo.net>
 ;; Maintainer: Philip Kaludercic <philipk@posteo.net>
@@ -102,7 +102,7 @@
 ;; - check-headers ()                           ??
 ;; - delete-file (file)                         OK
 ;; - rename-file (old new)                      OK
-;; - find-file-hook ()                          ??
+;; - find-file-hook ()                          OK
 ;; - extra-menu ()                              ??
 ;; - extra-dir-menu ()                          ??
 ;; - conflicted-files (dir)                     ??
@@ -444,6 +444,13 @@ BUFFER and ASYNC as interpreted as specified in vc.el."
         (rename-file backup new-backup t)))))
 
 ;; - find-file-hook ()
+
+;; We need this ugly hack because vc-backup, being a vc backend,
+;; blocks the creation of backup files.  We work around it by setting
+;; `vc-make-backup-files' to t buffer-locally.
+(defun vc-backup-find-file-hook ()
+  "Ensure that backup file generation is enabled for current buffer."
+  (setq-local vc-make-backup-files t))
 
 ;; - extra-menu ()
 
